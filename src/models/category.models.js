@@ -23,7 +23,6 @@ const categorySchema = new Schema(
         },
         taxType: {
             type: String,
-            required: true
         }
     },
     {

@@ -27,4 +27,11 @@ app.use(
 
 app.use(cookieParser());
 
+
+//Routes
+import categoryRouter from "./routes/category.routes.js";
+
+app.use("/api/v1/category", categoryRouter);
+
+
 export { app };
