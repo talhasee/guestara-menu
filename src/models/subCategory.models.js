@@ -34,7 +34,7 @@ const subCategorySchema = new Schema(
 Pre hook or middleware hook to set default values of 
 taxApplicability: Boolean, Default: Category's tax applicability 
 tax: Number, Default: Category's tax number
-This middleware function will execute before saving a new SubCategory document.
+This middleware function will execute before *****BEFORE SAVING A NEW***** SubCategory document.
 **************************************/
 
 subCategorySchema.pre('save', async function (next) {
@@ -49,5 +49,36 @@ subCategorySchema.pre('save', async function (next) {
 
     next();
 });
+
+/**************************************
+Pre hook or middleware hook to set default values of 
+taxApplicability: Boolean, Default: Category's tax applicability 
+tax: Number, Default: Category's tax number
+This middleware function will execute before *****UPDATING AN EXISTING DOCUMENT*** SubCategory document.
+**************************************/
+
+subCategorySchema.pre('findOneAndUpdate', async function (next) {
+    const update = this.getUpdate();
+
+    // If taxApplicability or tax is being updated
+    if (update.$set && (update.$set.taxApplicability === undefined || update.$set.tax === undefined)) {
+        const category = await Category.findById(this.getQuery().category);
+
+        if (category) {
+            // If taxApplicability is being removed, set it to the Category's taxApplicability
+            if (update.$set.taxApplicability === undefined) {
+                update.$set.taxApplicability = category.taxApplicability;
+            }
+
+            // If tax is being removed, set it to the Category's tax
+            if (update.$set.tax === undefined) {
+                update.$set.tax = category.tax;
+            }
+        }
+    }
+
+    next();
+});
+
 
 export const SubCategory = mongoose.model("subcategories", subCategorySchema);
