@@ -8,13 +8,12 @@ This project is for the Guestara assignment. It includes functionality related t
 
 ## Prerequisites
 Before running the application, make sure you have the following installed:
-- Node.js (version X.X.X or higher)
-- MongoDB (optional, if your project requires a database)
+- Node.js (version 20.7 or higher)
 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/guestara.git
+   git clone https://github.com/talhasee/guestara-menu.git
 2. Navigate to the project directory:
     ```bash
    cd guestara
