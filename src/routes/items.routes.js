@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
     createNewItem,
+    getAllItems,
     getAllItemsForCategory,
     getAllItemsForSubCategory,
     getItemById,
@@ -18,6 +19,10 @@ router
 router
 .route("/")
 .get(itemSearch);
+
+router
+.route('/all')
+.get(getAllItems)
 
 router
 .route('/all/it-c/:categoryId')

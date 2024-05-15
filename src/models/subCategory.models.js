@@ -30,12 +30,12 @@ const subCategorySchema = new Schema(
     }
 );
 
-/**************************************
-Pre hook or middleware hook to set default values of 
-taxApplicability: Boolean, Default: Category's tax applicability 
-tax: Number, Default: Category's tax number
-This middleware function will execute before *****BEFORE SAVING A NEW***** SubCategory document.
-**************************************/
+/********************************************************************************************
+    Pre hook to set default values of 
+    taxApplicability: Boolean, Default: Category's tax applicability 
+    tax: Number, Default: Category's tax number
+    This middleware function will execute before *****BEFORE SAVING A NEW***** SubCategory document.
+*********************************************************************************************/
 
 subCategorySchema.pre('save', async function (next) {
     //const category = await mongoose.model('Category').findById(this.category);
@@ -50,12 +50,12 @@ subCategorySchema.pre('save', async function (next) {
     next();
 });
 
-/**************************************
-Pre hook or middleware hook to set default values of 
-taxApplicability: Boolean, Default: Category's tax applicability 
-tax: Number, Default: Category's tax number
-This middleware function will execute before *****UPDATING AN EXISTING DOCUMENT*** SubCategory document.
-**************************************/
+/************************************************************************************************
+    Pre hook to set default values of 
+    taxApplicability: Boolean, Default: Category's tax applicability 
+    tax: Number, Default: Category's tax number
+    This middleware function will execute before *****UPDATING AN EXISTING DOCUMENT*** SubCategory document.
+*************************************************************************************************/
 
 subCategorySchema.pre('findOneAndUpdate', async function (next) {
     const update = this.getUpdate();

@@ -6,7 +6,7 @@ import { Category } from "../models/category.models.js";
 import { Item } from "../models/items.models.js";
 import { SubCategory } from "../models/subCategory.models.js";
 
-
+//For creating a new Item
 const createNewItem = asyncHandler (async (req, res) => {
     const {name, image, description, taxApplicability, tax, baseAmount, discount, categoryId, subCategoryId} = req.body;
 
@@ -47,6 +47,22 @@ const createNewItem = asyncHandler (async (req, res) => {
         );
 });
 
+//For getting all the items
+const getAllItems = asyncHandler(async (req, res) => {
+    const items = await Item.find({});
+
+    return res
+        .status(200)
+        .json(
+            new apiResponse(
+                200,
+                items,
+                "All items fetched successfully"
+            )
+        )
+});
+
+//For Getting All Items associated with a category
 const getAllItemsForCategory = asyncHandler (async (req, res) => {
     const { categoryId } = req.params;
 
@@ -88,6 +104,7 @@ const getAllItemsForCategory = asyncHandler (async (req, res) => {
         );
 });
 
+//For getting all the items associated with a subCategory
 const getAllItemsForSubCategory = asyncHandler (async (req, res) => {
     const { subcategoryId } = req.params;
 
@@ -109,6 +126,7 @@ const getAllItemsForSubCategory = asyncHandler (async (req, res) => {
             );
     }
 
+    //Pipeline for sorting out all the documents with subCategory as given subCategory from items collection
     const itemsForSubCategory = await Item.aggregate([
         {
             $match: {
@@ -129,6 +147,7 @@ const getAllItemsForSubCategory = asyncHandler (async (req, res) => {
         );
 });
 
+//For getting an item with its id
 const getItemById = asyncHandler(async(req, res) => {
     const { itemId } = req.params;
    
@@ -161,7 +180,8 @@ const getItemById = asyncHandler(async(req, res) => {
         );
 });
 
-
+//For getting an item using its name
+//NOTE: Here 'name' is case-sensitive
 const getItemByName = asyncHandler (async(req, res) => {
     const { name } = req.params;
 
@@ -192,6 +212,7 @@ const getItemByName = asyncHandler (async(req, res) => {
         );
 });
 
+//For updating any attribute of an item
 const updateItem = asyncHandler(async(req, res) => {
     const { itemId } = req.params;
     const {name, image, description, taxApplicability, tax, baseAmount, discount, categoryId, subCategoryId} = req.body;
@@ -260,6 +281,7 @@ const updateItem = asyncHandler(async(req, res) => {
         );
 });
 
+//Fuzzy Searching of any item with its name
 const itemSearch = asyncHandler(async(req, res) => {
     const {page = 1, limit = 10, query, sortBy, sortType} = req.query;
 
@@ -321,6 +343,7 @@ const itemSearch = asyncHandler(async(req, res) => {
 
 export {
     createNewItem,
+    getAllItems,
     getAllItemsForCategory,
     getAllItemsForSubCategory,
     getItemById,

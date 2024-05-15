@@ -4,11 +4,10 @@ import { Category } from "../models/category.models.js";
 import { apiResponse } from "../utils/apiResponse.js";
 import { isValidObjectId } from "mongoose";
 
+//For creating a new catagory
 const createNewCategory = asyncHandler ( async (req, res) => {
     try {
         const {name, imageUrl, description, taxApplicability, tax, taxType} = req.body;
-
-        // console.log(`name - ${name}\nimageUrl - ${imageUrl}\ndescription - ${description}\ntaxApplicability - ${taxApplicability}\ntax - ${tax}\ntaxType - ${taxType}`);
 
         const newCategory = await Category.create({
             name: name,
@@ -18,8 +17,6 @@ const createNewCategory = asyncHandler ( async (req, res) => {
             tax: tax,
             taxType: taxType
         });
-
-        // console.log(JSON.stringify(newCategory));
 
         const createdCategory = await Category.findById(newCategory._id);
 
@@ -41,7 +38,7 @@ const createNewCategory = asyncHandler ( async (req, res) => {
     }
 });
 
-
+//For getting all categories
 const getAllCategories = asyncHandler (async (req, res) => {
     const allCategories = await Category.find({});
 
@@ -56,6 +53,8 @@ const getAllCategories = asyncHandler (async (req, res) => {
         );
 });
 
+//For getting category using name 
+//NOTE: 'name' should be case-sensitive
 const getCategoryByName = asyncHandler( async (req, res) => {
     const { name }= req.params;
 
@@ -86,7 +85,7 @@ const getCategoryByName = asyncHandler( async (req, res) => {
     );
 });
 
-
+//For getting category using ID
 const getCategoryById = asyncHandler( async (req, res) => {
     const { id }= req.params;
 
@@ -119,7 +118,7 @@ const getCategoryById = asyncHandler( async (req, res) => {
     );
 });
 
-
+//For updating category 
 const updateCategory = asyncHandler( async(req, res) => {
     const { id } = req.params;
     const {name, imageUrl, description, taxApplicability, tax, taxType} = req.body;

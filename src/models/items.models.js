@@ -47,7 +47,9 @@ const itemSchema = new Schema(
     }
 );
 
-//Pre hook to calculate totalAmount before saving a new document
+/****************************************************************************
+    Pre hook to calculate 'totalAmount' before saving a new document
+ ****************************************************************************/
 
 itemSchema.pre('save', function (next) {
     this.totalAmount = this.baseAmount - this.discount;
@@ -55,7 +57,9 @@ itemSchema.pre('save', function (next) {
     next();
 });
 
-//Pre hook to update totalAmount after a document is udpated
+/***************************************************************************
+    Pre hook to update 'totalAmount' after a document is udpated
+****************************************************************************/
 itemSchema.pre('findOneAndUpdate', async function (next) {
     const update = this.getUpdate();
 
@@ -84,6 +88,9 @@ itemSchema.pre('findOneAndUpdate', async function (next) {
 });
 
 
+/***************************************************************************
+    For pagination of fuzzy search results 
+****************************************************************************/
 itemSchema.plugin(mongooseAggregatePaginate);
 
 export const Item = mongoose.model("items", itemSchema);

@@ -5,28 +5,14 @@ import { apiResponse } from "../utils/apiResponse.js";
 import mongoose, { isValidObjectId } from "mongoose";
 import { Category } from "../models/category.models.js";
 
+
+//For creating a new Subcategory 
 const createNewSubCategory = asyncHandler( async (req, res) => {
     const {name, image, description, taxApplicability, tax, categoryId} = req.body;
 
     if(!isValidObjectId(categoryId)){
         throw new apiError(400, "Invalid Category ID");
     }
-
-    //if i wish to create of subcategories in category itself then i can push
-    //subcategory id in category document
-    //const category = await Category.findById(categoryId);
-
-    // if(!category){
-    //     return res
-    //     .status(404)
-    //     .json(
-    //         new apiResponse(
-    //             404,
-    //             {},
-    //             "Category Not found"
-    //         )
-    //     );
-    // }
 
     const newSubCategory = await SubCategory.create({
         name: name,
@@ -62,6 +48,7 @@ const createNewSubCategory = asyncHandler( async (req, res) => {
         );
 });
 
+//For getting all Subcategories from subcategories collection
 const getAllSubCategories = asyncHandler( async (req, res) => {
     const allSubCategories = await SubCategory.find({});
 
@@ -76,6 +63,7 @@ const getAllSubCategories = asyncHandler( async (req, res) => {
     );
 });
 
+//For getting all subCategory associated with a Category
 const getAllSubCategoriesForCategory = asyncHandler( async(req, res) => {
     const { categoryId } = req.params;
 
@@ -110,6 +98,8 @@ const getAllSubCategoriesForCategory = asyncHandler( async(req, res) => {
         );
 });
 
+//For getting a Subcategory using 'name'
+//NOTE: 'name' is case-sensitive
 const getSubCategoryByName = asyncHandler( async (req, res) => {
     const { name } = req.params;
 
@@ -140,6 +130,7 @@ const getSubCategoryByName = asyncHandler( async (req, res) => {
     );
 });
 
+//For getting subcategory using ID
 const getSubCategoryById = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
@@ -168,6 +159,7 @@ const getSubCategoryById = asyncHandler(async (req, res) => {
     );
 });
 
+//For updating any attribute of subCategory
 const updateSubCategory = asyncHandler( async(req, res) => {
     const { id } = req.params;
     const {name, image, description, taxApplicability, tax, category} = req.body;
