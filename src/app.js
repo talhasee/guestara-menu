@@ -30,8 +30,10 @@ app.use(cookieParser());
 
 //Routes
 import categoryRouter from "./routes/category.routes.js";
+import subCategoryRouter from "./routes/subCategory.routes.js";
 
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/subcategory", subCategoryRouter);
 
 
 export { app };

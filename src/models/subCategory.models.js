@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+import { Category } from "../models/category.models.js"
 const subCategorySchema = new Schema(
     {
         name: {
@@ -16,7 +16,6 @@ const subCategorySchema = new Schema(
         },
         taxApplicability: {
             type: Boolean,
-            required: true
         },
         tax: {
             type: Number,
@@ -39,8 +38,10 @@ This middleware function will execute before saving a new SubCategory document.
 **************************************/
 
 subCategorySchema.pre('save', async function (next) {
-    const category = await mongoose.model('Category').findById(this.category);
+    //const category = await mongoose.model('Category').findById(this.category);
 
+    const category = await Category.findById(this.category);
+    
     if(category){
         this.taxApplicability = this.taxApplicability || category.taxApplicability;
         this.tax = this.tax || category.tax;
