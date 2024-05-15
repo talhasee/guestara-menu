@@ -1,7 +1,7 @@
 # Guestara
 
 ## Description
-This project is for the Guestara assignment. It includes functionality related to [describe functionality here, e.g., food ordering, database management, etc.].
+This project is for the Guestara assignment. It includes functionality related to restaurant's menu's backend.
 
 - Model Link -> [Link](https://app.eraser.io/workspace/ltab1S4lQhfXydmZW18U?origin=share)
 - Api Documentation Link -> [Link](https://documenter.getpostman.com/view/33407682/2sA3JRXy7f)
